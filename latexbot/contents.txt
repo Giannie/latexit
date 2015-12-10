@@ -1,0 +1,5 @@
+% arara: pdflatex: {shell: true}
+\documentclass[border=1pt, convert]{standalone}
+\usepackage{amsmath, amsfonts}
+\begin{document}
+$
