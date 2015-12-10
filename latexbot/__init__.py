@@ -26,7 +26,8 @@ if not os.path.isdir(tmp_dir):
         os.mkdir(tmp_dir)
 
 def gen_tex_text(text):
-    with open("contents.txt", "r") as f:
+    path = os.path.dirname(__file__) + /
+    with open(path + "contents.txt", "r") as f:
         contents = f.read()
     contents += text
     contents += "$\n\\end{document}\n"
