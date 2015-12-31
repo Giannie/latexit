@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import latexbot
 import flask
 from flask import Flask, request, make_response
