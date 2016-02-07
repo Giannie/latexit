@@ -4,14 +4,28 @@ import shutil
 from slacker import Slacker
 from imgurpython import ImgurClient
 import websocket
-from defaults import cpanel_auth, auth_token, client_id, client_secret
+from defaults import auth_token, client_id, client_secret
 import requests
 from requests.auth import HTTPBasicAuth
+from configobj import ConfigObj
+from time import sleep
 
+conf = ConfigObj("latexit.conf")
 
-slack = Slacker(auth_token)
+slack = Slacker(conf["Slack"]["auth_token"])
+count = 1
 
-client = ImgurClient(client_id, client_secret)
+while count < 5:
+    try:
+        client = ImgurClient(conf["Imgur"]["client_id"], conf["Imgur"]["client_secret"])
+        break
+    except:
+        count += 1
+        sleep(5)
+
+if count == 5:
+    print("Couldn't connect to Imgur")
+
 
 tmp_dir = "/tmp/latexbot"
 
@@ -89,11 +103,6 @@ def on_message(ws, message):
             dir_path = tmp_dir + "/" + name
             post_message(message["channel"], dir_path + "/" + name + ".png")
             cleanup(name)
-
-def update_redirect(url, cpanel_auth):
-    update_url = "https://server21.bigwetfish.co.uk:2083/frontend/paper_lantern/subdomain/saveredirect.html?domain=highgatemaths_ggrasso.com&url="
-    update_url += url
-    requests.get(update_url, auth=cpanel_auth)
 
 
 if __name__ == "__main__":
