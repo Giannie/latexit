@@ -1,0 +1,10 @@
+[Unit]
+Description=Latexit webserver
+After=networking.service
+
+[Service]
+User=www-data
+ExecStart=/usr/bin/python /usr/local/bin/latexit/webserver.py
+
+[Install]
+WantedBy=multi-user.target

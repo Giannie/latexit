@@ -1,0 +1,7 @@
+imgurpython
+slacker
+requests
+flask
+flask-api
+flask-restful
+configobj

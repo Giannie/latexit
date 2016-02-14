@@ -49,8 +49,6 @@ app = Flask(__name__)
 @app.route('/', methods=['POST'])
 def parse_request():
     parser = reqparse.RequestParser()
-    # request.get_data()
-    # data = request.data
     arg_list = ['text','token','channel_id','response_url', 'user_id', 'command']
     for item in arg_list:
         parser.add_argument(item)
@@ -58,14 +56,7 @@ def parse_request():
     if args['text'].find("write18") > -1:
         resp = {"text": "Illegal command. I can't run that for security reasons."}
         return flask.jsonify(resp)
-    # name = args['user_id']
-    # text = args['text']
-    # latexbot.create_image(text, name)
-    # path = latexbot.tmp_dir + "/" + name + "/" + name + ".png"
-    # image_data = latexbot.upload_image(path)
-    # image_url = str(image_data["link"])
     resp = {"response_type": "in_channel"}
-    # return flask.jsonify(resp)
     thread = ImageUpload(args)
     return flask.jsonify(resp)
 
